@@ -17,6 +17,8 @@ app.layout = html.Div(children=[
     html.Div(children='''
         Groep A5 met Jop Rijksbaron, Milan Doodeman, Julien Coudron en Mark Muller.
     '''),
+    html.Label('Text Input'),
+    dcc.Input(id='country', value='country', type='text'),
     dcc.Graph(
         id='Nationality of terrorists in the given country',
         figure={
