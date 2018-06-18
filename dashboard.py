@@ -15,7 +15,7 @@ app.layout = html.Div(children=[
     html.H1(children='Informatie Visualisatie'),
 
     html.Div(children='''
-        Groep A5 met Jop Rijksbaron, Milan Doodeman, Julien Coudron en Mark.
+        Groep A5 met Jop Rijksbaron, Milan Doodeman, Julien Coudron en Mark Muller.
     '''),
     dcc.Graph(
         id='Nationality of terrorists in the given country',
