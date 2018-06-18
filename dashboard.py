@@ -2,14 +2,17 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import pandas as pd
 
 app = dash.Dash()
 
+df = df = pd.read_csv('globalterrorismdb_0616dist.csv', encoding = "cp1252")
+
 app.layout = html.Div(children=[
-    html.H1(children='Hello Dash'),
+    html.H1(children='Informatie Visualisatie'),
 
     html.Div(children='''
-        Dash: A web application framework for Python.
+        Groep A5 met Jop RIjksbaron, Milan Doodeman, Julien Coudron en Mark.
     '''),
 
     dcc.Graph(
