@@ -18,14 +18,17 @@ app.layout = html.Div(children=[
         Groep A5 met Jop Rijksbaron, Milan Doodeman, Julien Coudron en Mark.
     '''),
     dcc.Graph(
-        id='life-exp-vs-gdp',
+        id='Nationality of terrorists in the given country',
         figure={
             'data': [
                 go.Pie(
                     labels=dataternat[0],
                     values=dataternat[1]
                 )
-            ]
+            ],
+            "layout": {
+                'title': "Nationality of terrorists in the given country"
+            }
         }
     )
 ])
