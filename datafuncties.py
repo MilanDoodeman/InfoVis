@@ -17,6 +17,7 @@ def terroristnationality(country, df):
                 times.append(values)
             else:
                 other += values
-    nationality.append("Other")
-    times.append(other)
+    if other > 0:
+        nationality.append("Other")
+        times.append(other)
     return nationality, times
