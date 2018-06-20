@@ -11,8 +11,6 @@ app = dash.Dash()
 
 df = pd.read_csv('globalterrorismdb_0616dist.csv', encoding = "cp1252")
 
-# predata = attacktype(df, "Afghanistan")
-
 app.layout = html.Div([
     html.H1(children='Informatie Visualisatie'),
 
@@ -22,6 +20,8 @@ app.layout = html.Div([
 
     dcc.Input(id='input-box1', value="Afghanistan", type='text'),
     dcc.Graph(id='output1'),
+    dcc.Input(id='input-box2', value="Afghanistan", type='text'),
+    dcc.Graph(id='output2')
 ])
 
 
@@ -29,7 +29,7 @@ app.layout = html.Div([
     Output('output1', 'figure'),
     [Input('input-box1', 'value')]
 )
-def update_output_div(input_value):
+def update_output_1(input_value):
     dataternat = terroristnationality(str(input_value), df)
     return {
             'data': [
@@ -42,6 +42,28 @@ def update_output_div(input_value):
                 'title': "Nationality of terrorists in {}" .format(input_value)
             }
         }
-
+@app.callback(
+    Output('output2', 'figure'),
+    [Input('input-box2', 'value')]
+)
+def update_output_2(input_value):
+    predata = attacktype(df, str(input_value))
+    return {
+            'data': [
+                {'x': predata[0], 'y': predata[1][0], 'type': 'bar', 'name': predata[2][0]},
+                {'x': predata[0], 'y': predata[1][1], 'type': 'bar', 'name': predata[2][1]},
+                {'x': predata[0], 'y': predata[1][2], 'type': 'bar', 'name': predata[2][2]},
+                {'x': predata[0], 'y': predata[1][3], 'type': 'bar', 'name': predata[2][3]},
+                {'x': predata[0], 'y': predata[1][4], 'type': 'bar', 'name': predata[2][4]},
+                {'x': predata[0], 'y': predata[1][5], 'type': 'bar', 'name': predata[2][5]},
+                {'x': predata[0], 'y': predata[1][6], 'type': 'bar', 'name': predata[2][6]},
+                {'x': predata[0], 'y': predata[1][7], 'type': 'bar', 'name': predata[2][7]},
+                {'x': predata[0], 'y': predata[1][8], 'type': 'bar', 'name': predata[2][8]}
+            ],
+            'layout': {
+                'title': 'Attack Type through the years in kills per attack type in {}' .format(input_value),
+                'barmode': "stack"
+                }
+          }
 if __name__ == '__main__':
     app.run_server(debug=True)
