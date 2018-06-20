@@ -19,6 +19,17 @@ app.layout = html.Div(children=[
         Groep A5 met Jop Rijksbaron, Milan Doodeman, Julien Coudron en Mark Muller.
     '''),
 
+    html.Div(dcc.Input(id='input-box', type='text')),
+    html.Button('Submit', id='button'),
+    html.Div(id='output-container-button',
+             children='Enter a value and press submit'),
+
+    dcc.Input(
+    placeholder='Enter a value...',
+    type='text',
+    value=''
+    ),
+
     dcc.Graph(
         id='terrorist nationality',
         figure={
