@@ -46,7 +46,7 @@ def worldmap(df, year):
     for i in countryattacks.keys():
         countryattacks[i]['meanlongitude'] = np.mean(list(df[df['country_txt']==i]['longitude'].fillna(0)))
         countryattacks[i]['meanlatitude'] = np.mean(list(df[df['country_txt']==i]['latitude'].fillna(0)))
-        countryattacks[i]['amount'] = len(df[(df['iyear']==2001) & (df['country_txt']==i)])
+        countryattacks[i]['amount'] = len(df[(df['iyear']==year) & (df['country_txt']==i)])
 
     limits = [(1,10),(11,20),(21,30),(31,40),(41,3000)]
     colors = ["rgb(0,223,255)","rgb(51,255,51)","rgb(255,255,51)","rgb(255,153,51)","rgb(255,0,0)"]
