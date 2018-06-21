@@ -20,7 +20,7 @@ app.layout = html.Div([
 
     dcc.Input(id='input-box1', value="Afghanistan", type='text'),
     dcc.Graph(id='output1'),
-    dcc.Input(id='input-box2', value="Afghanistan", type='text'),
+    # dcc.Input(id='input-box2', value="Afghanistan", type='text'),
     dcc.Graph(id='output2')
 ])
 
@@ -44,7 +44,7 @@ def update_output_1(input_value):
         }
 @app.callback(
     Output('output2', 'figure'),
-    [Input('input-box2', 'value')]
+    [Input('input-box1', 'value')]
 )
 def update_output_2(input_value):
     predata = attacktype(df, str(input_value))

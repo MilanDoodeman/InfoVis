@@ -25,14 +25,14 @@ def terroristnationality(country, df):
 def attacktype(df, country):
     everything = []
     types = []
+    countrycheck = df[df["country_txt"] == country]
     for type_attack in df["attacktype1_txt"].unique():
+        attackcheck = countrycheck[df["attacktype1_txt"] == type_attack]
         years = []
         values = []
         for year in df["iyear"].unique():
-            yearcheck = df[df["iyear"] == year]
-            countrycheck = yearcheck[df["country_txt"] == country]
-            attackcheck = countrycheck[df["attacktype1_txt"] == type_attack]
-            killcount = attackcheck["nkill"].sum()
+            yearcheck = attackcheck[df["iyear"] == year]
+            killcount = yearcheck["nkill"].sum()
             years.append(year)
             values.append(killcount)
         everything.append(values)
