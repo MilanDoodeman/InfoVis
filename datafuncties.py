@@ -71,7 +71,7 @@ def worldmap(df, year):
         data.append(trace)
 
     layout = dict(
-            title = 'Amount of attacks per country<br>(Scales in legend, click legend to toggle)',
+            title = 'Amount of attacks per country in {}<br>(Scales in legend, click legend to toggle)' .format(year),
             showlegend = True,
             geo = dict(
                 scope='world',

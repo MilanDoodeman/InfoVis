@@ -80,7 +80,7 @@ def update_output_2(input_value):
 )
 def update_worldmap(input_value):
     worldmapdata = worldmap(df, int(input_value))
-    return {'data': worldmapdata[1], 'laytout': worldmapdata[1]}
+    return {'data': worldmapdata[1], 'layout': worldmapdata[0]}
 
 if __name__ == '__main__':
     app.run_server(debug=True)
