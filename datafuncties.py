@@ -62,7 +62,7 @@ def worldmap(df, year, choice):
                 lat = [float(i[1]['meanlatitude']) for i in df_sub],
                 text = [i[0] for i in df_sub],
                 marker = dict(
-                    size = [float(i[1]['amount']) * 1.5 for i in df_sub],
+                    size = [float(i[1]['amount']) ** 0.35 * 10 for i in df_sub],
                     color = colors[i],
                     line = dict(width=0.5, color='rgb(40,40,40)'),
                     sizemode = 'area'
@@ -78,7 +78,8 @@ def worldmap(df, year, choice):
                     scope='world',
                     projection=dict( type='equirectangular' ),
                     showland = True,
-                    landcolor = 'rgb(217, 217, 217)',
+                    showocean = True,
+                    landcolor = 'white',
                     countrycolor= 'rgb(255, 255, 255)'
                 )
             )
@@ -114,7 +115,7 @@ def worldmap(df, year, choice):
                     projection=dict( type='equirectangular' ),
                     showland = True,
                     showocean = True,
-                    landcolor = 'rgb(217, 217, 217)',
+                    landcolor = 'white',
                     countrycolor= 'rgb(255, 255, 255)'
                 )
             )
