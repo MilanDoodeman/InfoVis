@@ -21,15 +21,15 @@ app.layout = html.Div([
     dcc.Input(id='input-box1', value="Afghanistan", type='text'),
     dcc.Graph(id='output1'),
     dcc.Graph(id='output2'),
+    dcc.Graph(id='worldmap'),
     html.Label('Slider'),
     dcc.Slider(
         id='slider',
         min=1970,
         max=2015,
         marks={i:str(i) for i in range(1970, 2015)},
-        value=2002,
-    ),
-    dcc.Graph(id='worldmap')
+        value=2002
+    )
 ])
 
 
