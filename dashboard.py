@@ -20,8 +20,16 @@ app.layout = html.Div([
 
     dcc.Input(id='input-box1', value="Afghanistan", type='text'),
     dcc.Graph(id='output1'),
-    # dcc.Input(id='input-box2', value="Afghanistan", type='text'),
-    dcc.Graph(id='output2')
+    dcc.Graph(id='output2'),
+    html.Label('Slider'),
+    dcc.Slider(
+        id='slider',
+        min=1970,
+        max=2015,
+        marks={i:str(i) for i in range(1970, 2015)},
+        value=2002,
+    ),
+    dcc.Graph(id='worldmap')
 ])
 
 
@@ -65,5 +73,14 @@ def update_output_2(input_value):
                 'barmode': "stack"
                 }
           }
+
+@app.callback(
+    Output('worldmap', 'figure'),
+    [Input('slider', 'value')]
+)
+def update_worldmap(input_value):
+    worldmapdata = worldmap(df, int(input_value))
+    return {'data': worldmapdata[1], 'laytout': worldmapdata[1]}
+
 if __name__ == '__main__':
     app.run_server(debug=True)
