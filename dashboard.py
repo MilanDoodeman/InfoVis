@@ -21,6 +21,16 @@ app.layout = html.Div([
     dcc.Input(id='input-box1', value="Afghanistan", type='text'),
     dcc.Graph(id='output1'),
     dcc.Graph(id='output2'),
+    dcc.RadioItems(
+        id="choice2",
+        options=[
+            {'label': 'Aantal doden per aanslagtype', 'value': 'Doden'},
+            {'label': 'Aantal aanslagen per aanslagtype', 'value': 'Aanslagen'},
+            {'label': 'Ratio', 'value': 'Ratio'}
+            ],
+        value='Doden',
+        labelStyle={'display': 'block'}
+    ),
     dcc.Graph(id='worldmap'),
     dcc.RadioItems(
         id="choice1",
@@ -62,10 +72,11 @@ def update_output_1(input_value):
         }
 @app.callback(
     Output('output2', 'figure'),
-    [Input('input-box1', 'value')]
+    [Input('input-box1', 'value'),
+    Input('choice2','value')]
 )
-def update_output_2(input_value):
-    predata = attacktype(df, str(input_value))
+def update_output_2(input_value, choice):
+    predata = attacktype(df, str(input_value), choice)
     return {
             'data': [
                 {'x': predata[0], 'y': predata[1][0], 'type': 'bar', 'name': predata[2][0]},

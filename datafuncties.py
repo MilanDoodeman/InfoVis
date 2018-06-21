@@ -24,21 +24,36 @@ def terroristnationality(country, df):
         times.append(other)
     return nationality, times
 
-def attacktype(df, country):
-    everything = []
-    types = []
-    countrycheck = df[df["country_txt"] == country]
-    for type_attack in df["attacktype1_txt"].unique():
-        attackcheck = countrycheck[df["attacktype1_txt"] == type_attack]
-        years = []
-        values = []
-        for year in df["iyear"].unique():
-            yearcheck = attackcheck[df["iyear"] == year]
-            killcount = yearcheck["nkill"].sum()
-            years.append(year)
-            values.append(killcount)
-        everything.append(values)
-        types.append(type_attack)
+def attacktype(df, country, choice):
+    if choice == "Doden":
+        everything = []
+        types = []
+        countrycheck = df[df["country_txt"] == country]
+        for type_attack in df["attacktype1_txt"].unique():
+            attackcheck = countrycheck[df["attacktype1_txt"] == type_attack]
+            years = []
+            values = []
+            for year in df["iyear"].unique():
+                yearcheck = attackcheck[df["iyear"] == year]
+                killcount = yearcheck["nkill"].sum()
+                years.append(year)
+                values.append(killcount)
+            everything.append(values)
+            types.append(type_attack)
+    elif choice == "Aanslagen":
+        everything = []
+        types = []
+        countrycheck = df[df["country_txt"] == country]
+        for type_attack in df["attacktype1_txt"].unique():
+            attackcheck = countrycheck[df["attacktype1_txt"] == type_attack]
+            years = []
+            values = []
+            for year in df["iyear"].unique():
+                yearcheck = attackcheck[df["iyear"] == year]
+                years.append(year)
+                values.append(len(yearcheck))
+            everything.append(values)
+            types.append(type_attack)
     return years, everything, types 
 
 def worldmap(df, year, choice):
