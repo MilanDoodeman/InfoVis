@@ -33,6 +33,14 @@ app.layout = html.Div([
     ),
     dcc.Graph(id='worldmap'),
     dcc.RadioItems(
+        id='displaychoice',
+        options=[
+            {'label': 'Locatie van de aanslag(en)','value': 'Locatie'},
+            {'label': 'Aantal aanslagen/doden van de aanslag','value': 'Aantal'}
+        ],
+        value='Locatie'
+    ),
+    dcc.RadioItems(
         id="choice1",
     options=[
         {'label': 'Aantal doden', 'value': 'Doden'},
@@ -98,11 +106,12 @@ def update_output_2(input_value, choice):
 @app.callback(
     Output('worldmap', 'figure'),
     [Input('slider', 'value'),
-    Input('choice1', 'value')]
+    Input('choice1', 'value'),
+    Input('displaychoice', 'value')]
 
 )
-def update_worldmap(slider, choice):
-    worldmapdata = worldmap(df, int(slider), str(choice))
+def update_worldmap(slider, choice, display):
+    worldmapdata = worldmap(df, int(slider), str(choice), str(display))
     return {'data': worldmapdata[1], 'layout': worldmapdata[0]}
 
 if __name__ == '__main__':

@@ -56,7 +56,7 @@ def attacktype(df, country, choice):
             types.append(type_attack)
     return years, everything, types 
 
-def worldmap(df, year, choice):
+def worldmap(df, year, choice, display):
     if choice == "Aanslagen":
         countryattacks = {i: {} for i in set(df[(df['iyear']==year)]['country_txt'])}
         for i in countryattacks.keys():
@@ -71,11 +71,15 @@ def worldmap(df, year, choice):
         for i in range(len(limits)):
             lim = limits[i]
             df_sub = [c for c in countryattacks.items() if c[1]['amount']>=lim[0] and c[1]['amount']<=lim[1]]
+            if display == 'Locatie':
+                displaytext = [i[0] for i in df_sub]
+            elif display == 'Aantal':
+                displaytext = [i[1]['amount'] for i in df_sub]
             trace = dict(
                 type = 'scattergeo',
                 lon = [float(i[1]['meanlongitude']) for i in df_sub],
                 lat = [float(i[1]['meanlatitude']) for i in df_sub],
-                text = [i[0] for i in df_sub],
+                text = displaytext,
                 marker = dict(
                     size = [float(i[1]['amount']) ** 0.35 * 10 for i in df_sub],
                     color = colors[i],
@@ -106,11 +110,15 @@ def worldmap(df, year, choice):
         for i in range(len(limits)):
             lim = limits[i]
             df_sub = df[(df['iyear']==year) & (df['nkill']>=lim[0]) & (df['nkill']<=lim[1])]
+            if display == 'Locatie':
+                displaytext = df_sub['city']+', '+df_sub['country_txt']
+            elif display == 'Aantal':
+                displaytext = df_sub['nkill'].astype(int)
             trace = dict(
                 type = 'scattergeo',
                 lon = df_sub['longitude'],
                 lat = df_sub['latitude'],
-                text = df_sub['city']+', '+df_sub['country_txt'],
+                text = displaytext,
                 marker = dict(
                     size = df_sub['nkill'] * 1.5,
                     color = colors[i],
