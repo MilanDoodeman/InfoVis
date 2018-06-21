@@ -22,6 +22,15 @@ app.layout = html.Div([
     dcc.Graph(id='output1'),
     dcc.Graph(id='output2'),
     dcc.Graph(id='worldmap'),
+    dcc.RadioItems(
+    options=[
+        {'label': 'Aantal doden', 'value': 'Doden'},
+        {'label': 'Aantal aanslagen', 'value': 'Aanslagen'},
+        {'label': 'Ratio', 'value': 'Ratio'}
+    ],
+    value='MTL',
+    labelStyle={'display': 'block'}
+    ),
     html.Label('Slider'),
     dcc.Slider(
         id='slider',
