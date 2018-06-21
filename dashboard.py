@@ -29,7 +29,7 @@ app.layout = html.Div([
         {'label': 'Aantal aanslagen', 'value': 'Aanslagen'},
         {'label': 'Ratio', 'value': 'Ratio'}
     ],
-    value='MTL',
+    value='Doden',
     labelStyle={'display': 'block'}
     ),
     html.Label('Slider'),

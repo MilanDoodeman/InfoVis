@@ -89,7 +89,7 @@ def worldmap(df, year, choice):
 
         for i in range(len(limits)):
             lim = limits[i]
-            df_sub = df[(df['iyear']==2001) & (df['nkill']>=lim[0]) & (df['nkill']<=lim[1])]
+            df_sub = df[(df['iyear']==year) & (df['nkill']>=lim[0]) & (df['nkill']<=lim[1])]
             trace = dict(
                 type = 'scattergeo',
                 lon = df_sub['longitude'],
