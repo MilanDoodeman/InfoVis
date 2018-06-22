@@ -42,7 +42,7 @@ def attacktype(df, country, choice):
             everything.append(values)
             types.append(type_attack)
     elif choice == "Aanslagen":
-        everything = []`
+        everything = []
         years = []
         types = []
         countrycheck = df[df["country_txt"] == country]
