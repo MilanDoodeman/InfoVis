@@ -27,6 +27,7 @@ def terroristnationality(country, df):
 def attacktype(df, country, choice):
     if choice == "Doden":
         everything = []
+        years = []
         types = []
         countrycheck = df[df["country_txt"] == country]
         for type_attack in df["attacktype1_txt"].unique():
@@ -41,7 +42,8 @@ def attacktype(df, country, choice):
             everything.append(values)
             types.append(type_attack)
     elif choice == "Aanslagen":
-        everything = []
+        everything = []`
+        years = []
         types = []
         countrycheck = df[df["country_txt"] == country]
         for type_attack in df["attacktype1_txt"].unique():
