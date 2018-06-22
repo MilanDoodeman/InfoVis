@@ -42,7 +42,7 @@ def attacktype(df, country, choice):
             everything.append(values)
             types.append(type_attack)
     elif choice == "Aanslagen":
-        everything = []`
+        everything = []
         years = []
         types = []
         countrycheck = df[df["country_txt"] == country]
@@ -72,23 +72,28 @@ def worldmap(df, year, choice, display):
 
         for i in range(len(limits)):
             lim = limits[i]
-            df_sub = [c for c in countryattacks.items() if c[1]['amount']>=lim[0] and c[1]['amount']<=lim[1]]
+            df_sub = [c for c in countryattacks.items() if lim[1]>=c[1]['amount']>=lim[0]]
             if display == 'Locatie':
                 displaytext = [i[0] for i in df_sub]
             elif display == 'Aantal':
                 displaytext = [i[1]['amount'] for i in df_sub]
+
+            if lim[0] == 41:
+                nametext = '>{}'.format(lim[0] - 1)
+            else:
+                nametext = '{} - {}'.format(lim[0],lim[1])
             trace = dict(
                 type = 'scattergeo',
                 lon = [float(i[1]['meanlongitude']) for i in df_sub],
                 lat = [float(i[1]['meanlatitude']) for i in df_sub],
                 text = displaytext,
                 marker = dict(
-                    size = [float(i[1]['amount']) ** 0.35 * 10 for i in df_sub],
+                    size = [i[1]['amount'] ** 0.35 * 10 for i in df_sub],
                     color = colors[i],
                     line = dict(width=0.5, color='rgb(40,40,40)'),
                     sizemode = 'area'
                 ),
-                name = '{0} - {1}'.format(lim[0],lim[1])
+                name = nametext
             )
             data.append(trace)
 
@@ -105,13 +110,19 @@ def worldmap(df, year, choice, display):
                 )
             )
     elif choice == "Doden":
-        limits = [(5,20),(21,50),(51,100),(101,3000)]
+        limits = [(5,20),(21,50),(51,100),(101,10000)]
         colors = ["rgb(51,255,51)","rgb(255,255,51)","rgb(255,153,51)","rgb(255,0,0)"]
         data = []
 
         for i in range(len(limits)):
             lim = limits[i]
             df_sub = df[(df['iyear']==year) & (df['nkill']>=lim[0]) & (df['nkill']<=lim[1])]
+
+            if lim[0] == 101:
+                nametext = '>{}'.format(lim[0] - 1)
+            else:
+                nametext = '{} - {}'.format(lim[0], lim[1])
+
             if display == 'Locatie':
                 displaytext = df_sub['city']+', '+df_sub['country_txt']
             elif display == 'Aantal':
@@ -128,7 +139,7 @@ def worldmap(df, year, choice, display):
                     line = dict(width=0.5, color='rgb(0,0,0)'),
                     sizemode = 'area'
                 ),
-                name = '{0} - {1}'.format(lim[0],lim[1])
+                name = nametext
             )
             data.append(trace)
 
@@ -144,7 +155,58 @@ def worldmap(df, year, choice, display):
                     countrycolor= 'rgb(255, 255, 255)'
                 )
             )
-    else:
-        layout = {}
-        data =[]
+    elif choice == 'Ratio':
+        countryattacks = {i: {} for i in set(df[(df['iyear'] == year)]['country_txt'])}
+        for i in countryattacks.keys():
+            countryattacks[i]['meanlongitude'] = np.mean(list(df[df['country_txt'] == i]['longitude'].fillna(0)))
+            countryattacks[i]['meanlatitude'] = np.mean(list(df[df['country_txt'] == i]['latitude'].fillna(0)))
+            countryattacks[i]['amount'] = len(df[(df['iyear'] == year) & (df['country_txt'] == i)])
+            countryattacks[i]['kills'] = sum(df[(df['iyear'] == year) & (df['country_txt'] == i)]['nkill'].fillna(0))
+
+        limits = [(0, 0), (1, 10), (11, 30), (31, 50), (51, 100)]
+        colors = ["rgb(0,223,255)", "rgb(51,255,51)", "rgb(255,255,51)", "rgb(255,153,51)", "rgb(255,0,0)"]
+        data = []
+
+        for i in range(len(limits)):
+            lim = limits[i]
+            df_sub = [c for c in countryattacks.items() \
+                      if lim[1] >= (c[1]['kills'] / c[1]['amount']) >= lim[0]]
+            if display == 'Locatie':
+                displaytext = [i[0] for i in df_sub]
+            elif display == 'Aantal':
+                displaytext = [round(int(i[1]['kills']) / i[1]['amount']) for i in df_sub]
+
+            if lim[0] == 0:
+                nametext = '{}'.format(lim[0])
+            elif lim[0] == 51:
+                nametext = '>50'.format(lim[0] - 1)
+            else:
+                nametext = '{} - {}'.format(lim[0], lim[1])
+            trace = dict(
+                type='scattergeo',
+                lon=[float(i[1]['meanlongitude']) for i in df_sub],
+                lat=[float(i[1]['meanlatitude']) for i in df_sub],
+                text=displaytext,
+                marker=dict(
+                    size=[(int(i[1]['kills']) / i[1]['amount'] + 1) ** 0.5 * 12 for i in df_sub],
+                    color=colors[i],
+                    line=dict(width=0.5, color='rgb(40,40,40)'),
+                    sizemode='area'
+                ),
+                name= nametext
+            )
+            data.append(trace)
+
+        layout = dict(
+            title='Deaths/attack ratio per country in {}<br>(Scales in legend, click legend to toggle)'.format(year),
+            showlegend=True,
+            geo=dict(
+                scope='world',
+                projection=dict(type='equirectangular'),
+                showland=True,
+                showocean=True,
+                landcolor='white',
+                countrycolor='rgb(255, 255, 255)'
+            )
+        )
     return layout, data
