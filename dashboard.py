@@ -10,7 +10,7 @@ from datafuncties import *
 app = dash.Dash()
 
 df = pd.read_csv('globalterrorismdb_0616dist.csv', encoding = "cp1252")
-
+# app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'})
 app.layout = html.Div([
     html.H1(children='Informatie Visualisatie'),
 
@@ -18,47 +18,58 @@ app.layout = html.Div([
         Groep A5 met Jop Rijksbaron, Milan Doodeman, Julien Coudron en Mark Muller.
     '''),
 
-    dcc.Input(id='input-box1', value="Afghanistan", type='text'),
-    dcc.Graph(id='output1'),
-    dcc.Graph(id='output2'),
-    dcc.RadioItems(
-        id="choice2",
-        options=[
+    html.Div([
+        dcc.Input(id='input-box1', value="Afghanistan", type='text', style={'height': '38px', 
+        'padding': '6px', 
+        'background-color': '#fff',
+        'border': '1px solid #D1D1D1',
+        'border-radius': '4px',
+        'box-shadow': 'none',
+        'box-sizing': 'border-box', 
+        'font-family': "Open Sans",
+        'font-size': 'inherit'}),
+        html.Div([
+            dcc.Graph(id='output1', style={'flex': '40%', 'padding': '5px'}),
+            dcc.Graph(id='output2', style={'flex': '40%', 'padding': '5px'}),
+        ], style= {'display': 'flex'}),
+        dcc.RadioItems(
+            id="choice2",
+            options=[
             {'label': 'Aantal doden per aanslagtype', 'value': 'Doden'},
             {'label': 'Aantal aanslagen per aanslagtype', 'value': 'Aanslagen'},
-            {'label': 'Ratio', 'value': 'Ratio'}
             ],
-        value='Doden',
-        labelStyle={'display': 'block'}
-    ),
-    dcc.Graph(id='worldmap'),
-    dcc.RadioItems(
-        id='displaychoice',
-        options=[
-            {'label': 'Locatie van de aanslag(en)','value': 'Locatie'},
-            {'label': 'Aantal aanslagen/doden van de aanslag','value': 'Aantal'}
-        ],
-        value='Locatie'
-    ),
-    dcc.RadioItems(
-        id="choice1",
-    options=[
-        {'label': 'Aantal doden', 'value': 'Doden'},
-        {'label': 'Aantal aanslagen', 'value': 'Aanslagen'},
-        {'label': 'Ratio', 'value': 'Ratio'}
-    ],
-    value='Doden',
-    labelStyle={'display': 'block'}
-    ),
-    html.Label('Slider'),
-    dcc.Slider(
-        id='slider',
-        min=1970,
-        max=2015,
-        marks={i:str(i) for i in range(1970, 2015)},
-        value=2002
-    )
-])
+            value='Doden',
+            labelStyle={'display': 'block'}
+)], className='container'),
+    html.Div([
+            dcc.RadioItems(
+            id='displaychoice',
+            options=[
+                {'label': 'Locatie van de aanslag(en)','value': 'Locatie'},
+                {'label': 'Aantal aanslagen/doden van de aanslag','value': 'Aantal'}
+            ],
+            value='Locatie'
+        ),
+        dcc.RadioItems(
+            id="choice1",
+            options=[
+                {'label': 'Aantal doden', 'value': 'Doden'},
+                {'label': 'Aantal aanslagen', 'value': 'Aanslagen'},
+                {'label': 'Ratio', 'value': 'Ratio'}
+            ],
+            value='Doden',
+            labelStyle={'display': 'block'}
+        ),
+        dcc.Graph(id='worldmap'),
+        
+        dcc.Slider(
+            id='slider',
+            min=1970,
+            max=2015,
+            marks={i:str(i) for i in range(1970, 2015, 2)},
+            value=2002
+        ),
+    ], style= {'width': '80%', 'padding':'10%', 'display': 'inline-block'})])
 
 
 @app.callback(
