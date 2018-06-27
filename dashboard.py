@@ -12,35 +12,65 @@ app = dash.Dash()
 df = pd.read_csv('globalterrorismdb_0616dist.csv', encoding = "cp1252")
 # app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'})
 app.layout = html.Div([
-    html.H1(children='Informatie Visualisatie'),
-
-    html.Div(children='''
-        Groep A5 met Jop Rijksbaron, Milan Doodeman, Julien Coudron en Mark Muller.
-    '''),
+    html.H1(children='Informatievisualisatie', style={'margin-left': '30%'}),
 
     html.Div([
-        dcc.Input(id='input-box1', value="Afghanistan", type='text', style={'height': '38px', 
-        'padding': '6px', 
+            'Type country: '
+    ], style={'margin-left': '35%', 'display': "inline-block", 'font-family': 'Open Sans', 'padding': '6px', 'font-weight': 'bold '}),
+
+    html.Div([
+        dcc.Input(id='input-box1', value="Afghanistan", type='text', style={'height': '38px',
+        'padding': '6px',
         'background-color': '#fff',
         'border': '1px solid #D1D1D1',
         'border-radius': '4px',
         'box-shadow': 'none',
-        'box-sizing': 'border-box', 
+        'box-sizing': 'border-box',
         'font-family': "Open Sans",
-        'font-size': 'inherit'}),
+        'font-size': 'inherit',
+        'display': 'inline-block',
+        'margin-left': '35%'})]),
+
+    html.Div([
         html.Div([
-            dcc.Graph(id='output1', style={'flex': '40%', 'padding': '5px'}),
-            dcc.Graph(id='output2', style={'flex': '40%', 'padding': '5px'}),
-        ], style= {'display': 'flex'}),
-        dcc.RadioItems(
-            id="choice2",
-            options=[
-            {'label': 'Aantal doden per aanslagtype', 'value': 'Doden'},
-            {'label': 'Aantal aanslagen per aanslagtype', 'value': 'Aanslagen'},
-            ],
-            value='Doden',
-            labelStyle={'display': 'block'}
-)], className='container'),
+            dcc.Graph(id='output1', style={'float': 'left', 'width': '50%', 'margin-left': '10%', 'margin-bottom': '-20%', 'margin-top': '-20%'})
+        ]),
+
+        html.Div([
+            dcc.Graph(id='output2', style={'float': 'right', 'width': '5%', 'margin-right': '-18%', 'margin-top': '-20%'})
+        ]),
+
+        html.Div([
+            dcc.Graph(id='worldmap'),
+        ], style={'float': 'left', 'width': '100%', 'margin-left': '12%', 'margin-top': '-1%'}),
+
+        html.Div([
+            'Display type for barchart:'
+        ], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '135%', 'font-family': 'Open Sans', 'font-weight': 'bold '}),
+
+        html.Div([
+            dcc.RadioItems(
+                id="choice2",
+                options=[
+                {'label': 'Aantal doden per aanslagtype    ', 'value': 'Doden'},
+                {'label': 'Aantal aanslagen per aanslagtype', 'value': 'Aanslagen'},
+                ],
+                value='Doden',
+                #labelStyle={'display': 'block'}
+        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '135%'}),
+
+        html.Div([
+            dcc.Slider(
+                id='slider',
+                min=1970,
+                max=2015,
+                marks={i:str(i) for i in range(1970, 2015, 2)},
+                value=2002
+            ),
+        ], style= {'float': 'left', 'width': '100%', 'margin-top': '-10%', 'margin-left': '10%'}),
+
+    ], style={'display': 'table'}),
+
     html.Div([
             dcc.RadioItems(
             id='displaychoice',
@@ -48,8 +78,11 @@ app.layout = html.Div([
                 {'label': 'Locatie van de aanslag(en)','value': 'Locatie'},
                 {'label': 'Aantal aanslagen/doden van de aanslag','value': 'Aantal'}
             ],
-            value='Locatie'
-        ),
+            value='Locatie',
+            labelStyle={'display': 'block'}
+        )], style={'float': 'left', 'padding-top': '100px', 'padding-left': '600px'}),
+
+    html.Div([
         dcc.RadioItems(
             id="choice1",
             options=[
@@ -59,18 +92,10 @@ app.layout = html.Div([
             ],
             value='Doden',
             labelStyle={'display': 'block'}
-        ),
-        dcc.Graph(id='worldmap'),
-        
-        dcc.Slider(
-            id='slider',
-            min=1970,
-            max=2015,
-            marks={i:str(i) for i in range(1970, 2015, 2)},
-            value=2002
-        ),
-    ], style= {'width': '80%', 'padding':'10%', 'display': 'inline-block'})])
+        )], style={'float': 'left', 'padding-top': '200px', 'padding-left': '600px'}),
 
+
+])
 
 @app.callback(
     Output('output1', 'figure'),
@@ -110,7 +135,9 @@ def update_output_2(input_value, choice):
             ],
             'layout': {
                 'title': 'Attack Type through the years in kills per attack type in {}' .format(input_value),
-                'barmode': "stack"
+                'barmode': "stack",
+                'width': '100%',
+                'height': '100%'
                 }
           }
 

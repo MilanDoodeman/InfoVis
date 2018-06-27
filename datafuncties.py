@@ -56,7 +56,7 @@ def attacktype(df, country, choice):
                 values.append(len(yearcheck))
             everything.append(values)
             types.append(type_attack)
-    return years, everything, types 
+    return years, everything, types
 
 def worldmap(df, year, choice, display):
     if choice == "Aanslagen":
@@ -107,8 +107,10 @@ def worldmap(df, year, choice, display):
                     showocean = True,
                     landcolor = 'white',
                     countrycolor= 'rgb(255, 255, 255)'
-                )
+                ),
+                width = '100%'
             )
+
     elif choice == "Doden":
         limits = [(5,20),(21,50),(51,100),(101,10000)]
         colors = ["rgb(51,255,51)","rgb(255,255,51)","rgb(255,153,51)","rgb(255,0,0)"]
@@ -153,8 +155,10 @@ def worldmap(df, year, choice, display):
                     showocean = True,
                     landcolor = 'white',
                     countrycolor= 'rgb(255, 255, 255)'
-                )
+                ),
+                width='100%'
             )
+
     elif choice == 'Ratio':
         countryattacks = {i: {} for i in set(df[(df['iyear'] == year)]['country_txt'])}
         for i in countryattacks.keys():
@@ -207,6 +211,7 @@ def worldmap(df, year, choice, display):
                 showocean=True,
                 landcolor='white',
                 countrycolor='rgb(255, 255, 255)'
-            )
+            ),
+            width = '100%'
         )
     return layout, data
