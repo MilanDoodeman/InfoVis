@@ -107,8 +107,7 @@ def worldmap(df, year, choice, display):
                     showocean = True,
                     landcolor = 'white',
                     countrycolor= 'rgb(255, 255, 255)'
-                ),
-                width = '100%'
+                )
             )
 
     elif choice == "Doden":
@@ -155,8 +154,7 @@ def worldmap(df, year, choice, display):
                     showocean = True,
                     landcolor = 'white',
                     countrycolor= 'rgb(255, 255, 255)'
-                ),
-                width='100%'
+                )
             )
 
     elif choice == 'Ratio':
@@ -211,7 +209,6 @@ def worldmap(df, year, choice, display):
                 showocean=True,
                 landcolor='white',
                 countrycolor='rgb(255, 255, 255)'
-            ),
-            width = '100%'
+            )
         )
     return layout, data

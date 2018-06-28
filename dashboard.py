@@ -12,10 +12,10 @@ app = dash.Dash()
 df = pd.read_csv('globalterrorismdb_0616dist.csv', encoding = "cp1252")
 # app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'})
 app.layout = html.Div([
-    html.H1(children='Informatievisualisatie', style={'margin-left': '30%'}),
+    html.H1(children='Dashboard Terrorism Database', style={'margin-left': '32%'}),
 
     html.Div([
-            'Type country: '
+            'Choose country (donut & bar chart):'
     ], style={'margin-left': '35%', 'display': "inline-block", 'font-family': 'Open Sans', 'padding': '6px', 'font-weight': 'bold '}),
 
     html.Div([
@@ -37,16 +37,16 @@ app.layout = html.Div([
         ]),
 
         html.Div([
-            dcc.Graph(id='output2', style={'float': 'right', 'width': '5%', 'margin-right': '-18%', 'margin-top': '-20%'})
+            dcc.Graph(id='output2', style={'float': 'right', 'width': '5%', 'margin-right': '-18%', 'margin-top': '-10%'})
         ]),
 
         html.Div([
             dcc.Graph(id='worldmap'),
-        ], style={'float': 'left', 'width': '100%', 'margin-left': '12%', 'margin-top': '-1%'}),
+        ], style={'float': 'left', 'margin-left': '8%', 'margin-top': '-1%'}),
 
         html.Div([
-            'Display type for barchart:'
-        ], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '135%', 'font-family': 'Open Sans', 'font-weight': 'bold '}),
+            'Display type for Barchart:'
+        ], style={'margin-top': '-2%', 'margin-right': '-100%', 'margin-left': '135%', 'font-family': 'Open Sans', 'font-weight': 'bold '}),
 
         html.Div([
             dcc.RadioItems(
@@ -60,18 +60,26 @@ app.layout = html.Div([
         )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '135%'}),
 
         html.Div([
-            dcc.Slider(
-                id='slider',
-                min=1970,
-                max=2015,
-                marks={i:str(i) for i in range(1970, 2015, 2)},
-                value=2002
-            ),
-        ], style= {'float': 'left', 'width': '100%', 'margin-top': '-10%', 'margin-left': '10%'}),
+            'Type of Worldmap:'
+        ], style={'margin-top': '2%', 'margin-right': '-100%', 'margin-left': '108%', 'font-family': 'Open Sans', 'font-weight': 'bold'}),
 
-    ], style={'display': 'table'}),
+        html.Div([
+            dcc.Dropdown(
+                id="choice1",
+                options=[
+                    {'label': 'Aantal doden', 'value': 'Doden'},
+                    {'label': 'Aantal aanslagen', 'value': 'Aanslagen'},
+                    {'label': 'Ratio', 'value': 'Ratio'}
+                ],
+                value='Doden',
+                #labelStyle={'display': 'block'}
+        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '108%', 'width': '30%'}),
 
-    html.Div([
+        html.Div([
+            'Display type for Worldmap:'
+        ], style={'margin-top': '3%', 'margin-right': '-100%', 'margin-left': '100%', 'font-family': 'Open Sans', 'font-weight': 'bold'}),
+
+        html.Div([
             dcc.RadioItems(
             id='displaychoice',
             options=[
@@ -80,20 +88,19 @@ app.layout = html.Div([
             ],
             value='Locatie',
             labelStyle={'display': 'block'}
-        )], style={'float': 'left', 'padding-top': '100px', 'padding-left': '600px'}),
+        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '100%'}),
 
-    html.Div([
-        dcc.RadioItems(
-            id="choice1",
-            options=[
-                {'label': 'Aantal doden', 'value': 'Doden'},
-                {'label': 'Aantal aanslagen', 'value': 'Aanslagen'},
-                {'label': 'Ratio', 'value': 'Ratio'}
-            ],
-            value='Doden',
-            labelStyle={'display': 'block'}
-        )], style={'float': 'left', 'padding-top': '200px', 'padding-left': '600px'}),
+        html.Div([
+            dcc.Slider(
+                id='slider',
+                min=1970,
+                max=2015,
+                marks={i:str(i) for i in range(1970, 2015, 2)},
+                value=2002
+            ),
+        ], style= {'float': 'left', 'width': '90%', 'margin-top': '-12%', 'margin-left': '10%'}),
 
+    ], style={'display': 'table'}),
 
 ])
 
@@ -107,11 +114,12 @@ def update_output_1(input_value):
             'data': [
                 go.Pie(
                     labels=dataternat[0],
-                    values=dataternat[1]
+                    values=dataternat[1],
+                    hole=0.7
                 )
             ],
             "layout": {
-                'title': "Nationality of terrorists in {}" .format(input_value)
+                'title': "Nationality of terrorists in {}" .format(input_value),
             }
         }
 @app.callback(
