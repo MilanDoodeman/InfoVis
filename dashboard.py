@@ -37,7 +37,7 @@ app.layout = html.Div([
         ]),
 
         html.Div([
-            dcc.Graph(id='output2', style={'float': 'right', 'width': '5%', 'margin-right': '-18%', 'margin-top': '-10%'})
+            dcc.Graph(id='output2', style={'float': 'right', 'width': '5%', 'margin-right': '-18%', 'margin-top': '-13%'})
         ]),
 
         html.Div([
