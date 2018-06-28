@@ -115,7 +115,7 @@ def update_output_1(input_value):
                 go.Pie(
                     labels=dataternat[0],
                     values=dataternat[1],
-                    hole=0.7
+                    hole=0.5
                 )
             ],
             "layout": {
