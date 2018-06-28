@@ -25,7 +25,7 @@ def terroristnationality(country, df):
     return nationality, times
 
 def attacktype(df, country, choice):
-    if choice == "Doden":
+    if choice == "deaths":
         everything = []
         years = []
         types = []
@@ -41,7 +41,7 @@ def attacktype(df, country, choice):
                 values.append(killcount)
             everything.append(values)
             types.append(type_attack)
-    elif choice == "Aanslagen":
+    elif choice == "attacks":
         everything = []
         years = []
         types = []

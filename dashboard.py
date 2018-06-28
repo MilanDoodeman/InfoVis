@@ -19,7 +19,7 @@ app.layout = html.Div([
     ], style={'margin-left': '35%', 'display': "inline-block", 'font-family': 'Open Sans', 'padding': '6px', 'font-weight': 'bold '}),
 
     html.Div([
-        dcc.Input(id='input-box1', value="Afghanistan", type='text', style={'height': '38px',
+        dcc.Input(id='input-box1', value="Netherlands", type='text', style={'height': '38px',
         'padding': '6px',
         'background-color': '#fff',
         'border': '1px solid #D1D1D1',
@@ -33,7 +33,7 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            dcc.Graph(id='output1', style={'float': 'left', 'width': '50%', 'margin-left': '10%', 'margin-bottom': '-20%', 'margin-top': '-20%'})
+            dcc.Graph(id='output1', style={'float': 'left', 'width': '50%', 'margin-left': '10%', 'margin-bottom': '-20%', 'margin-top': '-23%'})
         ]),
 
         html.Div([
@@ -42,7 +42,7 @@ app.layout = html.Div([
 
         html.Div([
             dcc.Graph(id='worldmap'),
-        ], style={'float': 'left', 'margin-left': '8%', 'margin-top': '-1%'}),
+        ], style={'float': 'left', 'margin-left': '8%', 'margin-top': '2%', 'padding': '0px'}),
 
         html.Div([
             'Display type for Barchart:'
@@ -52,10 +52,10 @@ app.layout = html.Div([
             dcc.RadioItems(
                 id="choice2",
                 options=[
-                {'label': 'Aantal doden per aanslagtype    ', 'value': 'Doden'},
-                {'label': 'Aantal aanslagen per aanslagtype', 'value': 'Aanslagen'},
+                {'label': 'Aantal doden per aanslagtype    ', 'value': 'deaths'},
+                {'label': 'Aantal aanslagen per aanslagtype', 'value': 'attacks'},
                 ],
-                value='Doden',
+                value='deaths',
                 #labelStyle={'display': 'block'}
         )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '135%'}),
 
@@ -145,7 +145,9 @@ def update_output_2(input_value, choice):
                 'title': 'Attack Type through the years in kills per attack type in {}' .format(input_value),
                 'barmode': "stack",
                 'width': '100%',
-                'height': '100%'
+                'height': '100%',
+                'xaxis': {'title': 'Years'},
+                'yaxis': {'title': 'Total of {}'.format(choice)}
                 }
           }
 
