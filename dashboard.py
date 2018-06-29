@@ -12,11 +12,11 @@ app = dash.Dash()
 df = pd.read_csv('globalterrorismdb_0616dist.csv', encoding = "cp1252")
 # app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'})
 app.layout = html.Div([
-    html.H1(children='Dashboard Terrorism Database', style={'margin-left': '32%'}),
+    html.H1(children='Dashboard Terrorism Database', style={'margin-left': '32%', 'font-family': "sans-serif"}),
 
     html.Div([
             'Choose country (donut & bar chart):'
-    ], style={'margin-left': '35%', 'display': "inline-block", 'font-family': 'Open Sans', 'padding': '6px', 'font-weight': 'bold '}),
+    ], style={'margin-left': '35%', 'display': "inline-block", 'padding': '6px', 'font-weight': 'bold ', 'font-family': "sans-serif"}),
 
     html.Div([
         dcc.Input(id='input-box1', value="Netherlands", type='text', style={'height': '38px',
@@ -26,7 +26,7 @@ app.layout = html.Div([
         'border-radius': '4px',
         'box-shadow': 'none',
         'box-sizing': 'border-box',
-        'font-family': "Open Sans",
+        'font-family': "sans-serif",
         'font-size': 'inherit',
         'display': 'inline-block',
         'margin-left': '35%'})]),
@@ -46,7 +46,7 @@ app.layout = html.Div([
 
         html.Div([
             'Display type for Barchart:'
-        ], style={'margin-top': '-2%', 'margin-right': '-100%', 'margin-left': '135%', 'font-family': 'Open Sans', 'font-weight': 'bold '}),
+        ], style={'margin-top': '-2%', 'margin-right': '-100%', 'margin-left': '125%','font-weight': 'bold ', 'font-family': "sans-serif"}),
 
         html.Div([
             dcc.RadioItems(
@@ -57,11 +57,11 @@ app.layout = html.Div([
                 ],
                 value='deaths',
                 #labelStyle={'display': 'block'}
-        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '135%'}),
+        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '125%', 'font-family': "sans-serif"}),
 
         html.Div([
             'Type of Worldmap:'
-        ], style={'margin-top': '2%', 'margin-right': '-100%', 'margin-left': '108%', 'font-family': 'Open Sans', 'font-weight': 'bold'}),
+        ], style={'margin-top': '2%', 'margin-right': '-100%', 'margin-left': '108%', 'font-family': 'sans-serif', 'font-weight': 'bold'}),
 
         html.Div([
             dcc.Dropdown(
@@ -73,11 +73,11 @@ app.layout = html.Div([
                 ],
                 value='Doden',
                 #labelStyle={'display': 'block'}
-        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '108%', 'width': '30%'}),
+        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '108%', 'width': '30%', 'font-family': "sans-serif"}),
 
         html.Div([
             'Display type for Worldmap:'
-        ], style={'margin-top': '3%', 'margin-right': '-100%', 'margin-left': '100%', 'font-family': 'Open Sans', 'font-weight': 'bold'}),
+        ], style={'margin-top': '3%', 'margin-right': '-100%', 'margin-left': '100%', 'font-family': 'sans-serif', 'font-weight': 'bold'}),
 
         html.Div([
             dcc.RadioItems(
@@ -88,7 +88,7 @@ app.layout = html.Div([
             ],
             value='Locatie',
             labelStyle={'display': 'block'}
-        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '100%'}),
+        )], style={'margin-top': '0%', 'margin-right': '-100%', 'margin-left': '100%', 'font-family': "sans-serif"}),
 
         html.Div([
             dcc.Slider(
@@ -98,7 +98,7 @@ app.layout = html.Div([
                 marks={i:str(i) for i in range(1970, 2015, 2)},
                 value=2002
             ),
-        ], style= {'float': 'left', 'width': '90%', 'margin-top': '-12%', 'margin-left': '10%'}),
+        ], style= {'float': 'left', 'width': '90%', 'margin-top': '-12%', 'margin-left': '10%', 'font-family': "sans-serif"}),
 
     ], style={'display': 'table'}),
 
