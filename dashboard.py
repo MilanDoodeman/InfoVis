@@ -16,7 +16,7 @@ app.layout = html.Div([
 
     html.Div([
             'Choose country (donut & bar chart):'
-    ], style={'margin-left': '35%', 'display': "inline-block", 'padding': '6px', 'font-weight': 'bold ', 'font-family': "sans-serif"}),
+    ], style={'margin-left': '32%', 'display': "inline-block", 'padding': '6px', 'font-weight': 'bold ', 'font-family': "sans-serif"}),
 
     html.Div([
         dcc.Input(id='input-box1', value="Netherlands", type='text', style={'height': '38px',
@@ -29,7 +29,7 @@ app.layout = html.Div([
         'font-family': "sans-serif",
         'font-size': 'inherit',
         'display': 'inline-block',
-        'margin-left': '35%'})]),
+        'margin-left': '32%'})]),
 
     html.Div([
         html.Div([
